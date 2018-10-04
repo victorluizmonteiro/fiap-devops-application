@@ -22,4 +22,6 @@ node {
         stage('Start containers'){
         sh "docker-compose up"
 
+        }
+
 }
