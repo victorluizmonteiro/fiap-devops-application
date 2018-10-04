@@ -8,15 +8,18 @@ node {
    stage('Remove container if already running'){
 
     //Remove maven-build-container if it exists
-           sh " docker rm -f fiap-devops-container"
+           sh " docker-compose down"
 
    }
 
-      stage('Deploy Spring Boot Application') {
+      stage('Build images if not exists') {
 
 
 
-        sh "docker run --name fiap-devops-container -d -p 8087:8080 monteiro1306/fiapdevops"
+        sh "docker-compose build"
    }
+
+        stage('Start containers'){
+        sh "docker-compose up"
 
 }
