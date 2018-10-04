@@ -1,0 +1,49 @@
+version: "3.3"
+services:
+  nginx:
+    build:
+      dockerfile: ./docker/nginx.dockerfile
+      context: .
+    image: monteiro1306/nginx
+    container_name: nginx
+    ports:
+      - "80:80"
+
+    networks:
+      - production-network
+    depends_on:
+      - "spring1"
+      - "spring2"
+      - "spring3"
+
+  spring1:
+    image: monteiro1306/fiapdevops:2.0
+    container_name: fiap-devops-1
+
+    ports:
+      - "8080"
+
+    networks:
+      - production-network
+
+  spring2:
+    image: monteiro1306/fiapdevops:2.0
+    container_name: fiap-devops-2
+
+    ports:
+      - "8080"
+
+    networks:
+      - production-network
+  spring3:
+    image: monteiro1306/fiapdevops:2.0
+    container_name: fiap-devops-3
+    ports:
+      - "8080"
+    networks:
+      - production-network
+
+
+networks:
+  production-network:
+    driver: bridge
